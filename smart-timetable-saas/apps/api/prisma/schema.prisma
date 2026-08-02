@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrganizationType {
+  COLLEGE
+  UNIVERSITY
+  SCHOOL
+}
+
+enum Role {
+  SUPER_ADMIN
+  COLLEGE_ADMIN
+  DEPARTMENT_ADMIN
+  FACULTY
+  STUDENT
+}
+
+model Organization {
+  id            String               @id @default(uuid()) @db.Uuid
+  name          String               @db.VarChar(160)
+  slug          String               @unique @db.VarChar(80)
+  type          OrganizationType     @default(COLLEGE)
+  timezone      String               @default("Asia/Kolkata") @db.VarChar(64)
+  logoUrl       String?              @db.VarChar(2048)
+  isActive      Boolean              @default(true)
+  createdAt     DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime             @updatedAt @db.Timestamptz(3)
+  departments   Department[]
+  academicYears AcademicYear[]
+  members       OrganizationMember[]
+
+  @@index([isActive])
+}
+
+model User {
+  id              String               @id @default(uuid()) @db.Uuid
+  email           String               @unique @db.VarChar(320)
+  firstName       String               @db.VarChar(80)
+  lastName        String               @db.VarChar(80)
+  passwordHash    String?              @db.VarChar(255)
+  avatarUrl       String?              @db.VarChar(2048)
+  emailVerifiedAt DateTime?            @db.Timestamptz(3)
+  lastLoginAt     DateTime?            @db.Timestamptz(3)
+  isActive        Boolean              @default(true)
+  createdAt       DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime             @updatedAt @db.Timestamptz(3)
+  memberships     OrganizationMember[]
+
+  @@index([isActive])
+}
+
+model OrganizationMember {
+  id             String       @id @default(uuid()) @db.Uuid
+  organizationId String       @db.Uuid
+  userId         String       @db.Uuid
+  departmentId   String?      @db.Uuid
+  role           Role
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime     @updatedAt @db.Timestamptz(3)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department     Department?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+
+  @@unique([organizationId, userId])
+  @@index([organizationId, role, isActive])
+  @@index([departmentId])
+}
+
+model Department {
+  id             String               @id @default(uuid()) @db.Uuid
+  organizationId String               @db.Uuid
+  code           String               @db.VarChar(20)
+  name           String               @db.VarChar(120)
+  description    String?              @db.VarChar(500)
+  isActive       Boolean              @default(true)
+  createdAt      DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime             @updatedAt @db.Timestamptz(3)
+  organization   Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  members        OrganizationMember[]
+
+  @@unique([organizationId, code])
+  @@index([organizationId, isActive])
+}
+
+model AcademicYear {
+  id             String       @id @default(uuid()) @db.Uuid
+  organizationId String       @db.Uuid
+  code           String       @db.VarChar(20)
+  startsOn       DateTime     @db.Date
+  endsOn         DateTime     @db.Date
+  isCurrent      Boolean      @default(false)
+  createdAt      DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime     @updatedAt @db.Timestamptz(3)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, code])
+  @@index([organizationId, isCurrent])
+}

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-border: var(--border);
+  --shadow-soft: 0 18px 60px rgb(15 23 42 / 0.08);
+  --shadow-glass: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 16px 48px rgb(15 23 42 / 0.1);
+  --radius-card: 1.25rem;
+}
+
+:root {
+  color-scheme: light;
+  --canvas: #f6f8fc;
+  --surface: #ffffff;
+  --surface-muted: #eef2ff;
+  --ink: #172033;
+  --ink-muted: #62708a;
+  --brand: #5b5cf0;
+  --brand-strong: #4546cf;
+  --border: rgb(148 163 184 / 0.24);
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas: #0b1020;
+  --surface: #121a2e;
+  --surface-muted: #1b2540;
+  --ink: #f5f7ff;
+  --ink-muted: #a8b4cc;
+  --brand: #9293ff;
+  --brand-strong: #b4b5ff;
+  --border: rgb(148 163 184 / 0.2);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background: var(--canvas);
+  }
+
+  body {
+    @apply m-0 min-w-80 bg-canvas text-ink antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "smart-timetable-saas",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "dev:api": "pnpm --filter api dev",
+    "build:api": "pnpm --filter api build"
+  }
+}
