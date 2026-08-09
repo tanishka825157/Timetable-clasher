@@ -19,14 +19,14 @@
 
 :root {
   color-scheme: light;
-  --canvas: #f6f8fc;
+  --canvas: #f7f8fc;
   --surface: #ffffff;
-  --surface-muted: #eef2ff;
-  --ink: #172033;
-  --ink-muted: #62708a;
-  --brand: #5b5cf0;
-  --brand-strong: #4546cf;
-  --border: rgb(148 163 184 / 0.24);
+  --surface-muted: #f1f3f9;
+  --ink: #182033;
+  --ink-muted: #66738b;
+  --brand: #6558e8;
+  --brand-strong: #5145cf;
+  --border: rgb(148 163 184 / 0.18);
 }
 
 .dark {
@@ -53,6 +53,7 @@
 
   body {
     @apply m-0 min-w-80 bg-canvas text-ink antialiased;
+    background-image: radial-gradient(circle at 87% -5%, rgb(118 96 235 / 0.11), transparent 25rem), radial-gradient(circle at 12% 20%, rgb(34 211 238 / 0.07), transparent 20rem);
   }
 
   button,
@@ -61,4 +62,11 @@
   textarea {
     font: inherit;
   }
+}
+
+@layer components {
+  .app-card { @apply rounded-[1.4rem] border border-white/70 bg-surface shadow-[0_14px_38px_rgb(34_48_78_/_0.06)]; }
+  .button-primary { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgb(101_88_232_/_0.24)] transition duration-200 hover:-translate-y-0.5 hover:bg-brand-strong hover:shadow-[0_14px_28px_rgb(101_88_232_/_0.3)] focus:outline-none focus:ring-4 focus:ring-brand/20; }
+  .button-secondary { @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-bold text-ink transition duration-200 hover:-translate-y-0.5 hover:border-brand/30 hover:bg-surface-muted focus:outline-none focus:ring-4 focus:ring-brand/10; }
+  .field { @apply mt-2 w-full rounded-xl border border-border bg-surface px-3.5 py-3 text-sm font-medium outline-none transition placeholder:text-ink-muted/70 hover:border-brand/25 focus:border-brand focus:ring-4 focus:ring-brand/10; }
 }

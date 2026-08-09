@@ -7,9 +7,10 @@ export function Topbar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-10 border-b bg-canvas/75 backdrop-blur-xl">
+    <header className="sticky top-0 z-10 border-b border-white/65 bg-canvas/72 backdrop-blur-xl">
       <div className="mx-auto flex h-18 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <button className="group hidden flex-1 items-center gap-3 rounded-xl border bg-surface px-3 py-2 text-left shadow-sm transition hover:border-brand/35 sm:flex" type="button">
+        <div className="hidden flex-1 sm:block"><p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-ink-muted">Workspace</p><p className="mt-0.5 text-sm font-bold">Academic planning</p></div>
+        <button className="group hidden w-full max-w-md items-center gap-3 rounded-xl border border-white/70 bg-surface/85 px-3 py-2.5 text-left shadow-[0_6px_18px_rgb(34_48_78_/_0.04)] transition hover:border-brand/35 sm:flex" type="button">
           <Search size={18} className="text-ink-muted" />
           <span className="flex-1 text-sm text-ink-muted">Search schedules, rooms, faculty...</span>
           <span className="inline-flex items-center gap-1 rounded-md bg-surface-muted px-1.5 py-1 text-xs font-semibold text-ink-muted">

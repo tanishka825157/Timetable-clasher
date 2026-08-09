@@ -50,7 +50,7 @@ function NavigationLink({ item }: { item: NavigationItem }) {
 export function Sidebar() {
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 border-r bg-surface/85 px-5 py-6 backdrop-blur-xl lg:flex lg:flex-col">
+      <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 border-r border-white/70 bg-surface/82 px-5 py-7 backdrop-blur-xl lg:flex lg:flex-col">
         <NavLink to="/" className="flex items-center gap-3 px-2" aria-label="SmartTimetable home">
           <span className="grid size-10 place-items-center rounded-xl bg-linear-to-br from-brand to-violet-400 text-white shadow-[0_10px_24px_rgb(91_92_240_/_0.3)]">
             <CalendarRange size={21} />
@@ -61,11 +61,12 @@ export function Sidebar() {
           </span>
         </NavLink>
 
-        <nav className="mt-10 space-y-1" aria-label="Main navigation">
+        <p className="mt-10 px-3 text-[10px] font-extrabold uppercase tracking-[0.18em] text-ink-muted/75">Workspace</p>
+        <nav className="mt-3 space-y-1" aria-label="Main navigation">
           {navigationItems.map((item) => <NavigationLink key={item.label} item={item} />)}
         </nav>
 
-        <div className="mt-auto rounded-card border bg-surface-muted p-4">
+        <div className="mt-auto rounded-[1.25rem] border border-brand/10 bg-linear-to-br from-brand/10 to-cyan-400/10 p-4">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand">Planning status</p>
           <p className="mt-2 text-sm font-bold">Semester setup</p>
           <p className="mt-1 text-xs leading-5 text-ink-muted">Add departments and rooms to generate your first timetable.</p>

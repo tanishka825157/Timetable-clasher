@@ -6,7 +6,7 @@ type Session = { day: string; period: number; subject: string; teacher: string; 
 type SavedPlan = { department: string; programme: string; semester: string; subjects: Subject[]; rooms: string[]; periodsPerDay: number; sessions: Session[] }
 
 const STORAGE_KEY = 'smart-timetable-draft'
-const inputClass = 'mt-2 w-full rounded-xl border bg-surface px-3 py-2.5 text-sm font-medium outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10'
+const inputClass = 'field'
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
 function readPlan(): SavedPlan | null {
@@ -44,7 +44,7 @@ function makeDraft(subjects: Subject[], rooms: string[], periodsPerDay: number):
 }
 
 function EmptyState({ icon: Icon, title, detail }: { icon: typeof CalendarDays; title: string; detail: string }) {
-  return <section className="grid min-h-96 place-items-center rounded-card border border-dashed bg-surface/60 p-8 text-center"><div><Icon className="mx-auto text-brand" size={32} /><h1 className="mt-4 text-2xl font-extrabold">{title}</h1><p className="mt-2 max-w-md text-sm leading-6 text-ink-muted">{detail}</p></div></section>
+  return <section className="grid min-h-96 place-items-center rounded-[1.5rem] border border-dashed border-brand/25 bg-surface/65 p-8 text-center shadow-[0_14px_38px_rgb(34_48_78_/_0.04)]"><div><span className="mx-auto grid size-14 place-items-center rounded-2xl bg-brand/10"><Icon className="text-brand" size={26} /></span><h1 className="mt-5 text-2xl font-extrabold tracking-tight">{title}</h1><p className="mt-2 max-w-md text-sm leading-6 text-ink-muted">{detail}</p></div></section>
 }
 
 function SupportingWorkspace({ title }: { title: string }) {
