@@ -1,17 +1,72 @@
-# College Timetable & Room Clash Detector
+# SmartTimetable
 
-A login-protected Django admin tool for building and auditing college schedules. It flags room clashes, faculty clashes, and capacity violations before a section is saved.
+SmartTimetable is a modern timetable planner for schools and colleges. Create a weekly class schedule, assign teachers and rooms, review workloads, and download the timetable as a CSV file.
 
-## Run locally
+The app runs locally in the browser. It does not require a database, API key, or `.env` file.
 
-1. Create and activate a virtual environment (optional but recommended), then install dependencies: `python -m pip install -r requirements.txt`.
-2. Copy `.env.example` to `.env` and change `SECRET_KEY` for non-development use. Set `DATABASE_URL` to switch from the default SQLite database to PostgreSQL.
-3. Create the schema and an administrator: `python manage.py migrate` then `python manage.py createsuperuser`.
-4. Load demonstration records: `python manage.py seed_demo_data`.
-5. Start the server: `python manage.py runserver` and sign in at `http://127.0.0.1:8000/accounts/login/`.
+## What you need before starting
 
-Use **Add Section** for HTMX-powered conflict feedback, **Weekly timetable** for a filterable schedule and Excel export, and **Clash Report** to audit a semester.
+Install these two free tools:
 
-## Tests
+1. [Git](https://git-scm.com/downloads) — used to download the project.
+2. [Node.js LTS](https://nodejs.org/) — choose the **LTS** version. Node.js installs `npm`; the project uses `pnpm`, which will be enabled in the steps below.
 
-Run `python manage.py test`.
+After installing Node.js, close and reopen your terminal once.
+
+## Run the project on your laptop
+
+Open PowerShell (Windows Terminal is also fine) and run the commands below one at a time.
+
+### 1. Download the project
+
+```powershell
+git clone https://github.com/tanishka825157/Timetable-clasher.git
+cd Timetable-clasher\smart-timetable-saas
+```
+
+### 2. Enable pnpm and install the project packages
+
+```powershell
+corepack enable
+pnpm install
+```
+
+`pnpm install` downloads all required website packages automatically, including React, Tailwind CSS, icons, and animation libraries.
+
+### 3. Start the website
+
+```powershell
+pnpm dev:web
+```
+
+When the terminal shows a local address, open it in your browser. It is usually:
+
+```text
+http://localhost:5173
+```
+
+To stop the website, return to the terminal and press `Ctrl + C`.
+
+## Create a production build (optional)
+
+Use this when you want to verify that the website is ready to deploy:
+
+```powershell
+pnpm build:web
+```
+
+The generated files will be in `smart-timetable-saas\apps\web\dist`.
+
+## Notes
+
+- Timetables are saved only in your browser on your laptop.
+- Clearing browser data or changing to another browser removes saved local timetables.
+- Use the **Download CSV** button in the app to keep a backup of your schedule.
+
+## Project structure
+
+```text
+smart-timetable-saas/
+  apps/web/       React website
+  apps/api/       Optional API foundation (not required to run the website)
+```

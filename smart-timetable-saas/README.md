@@ -12,11 +12,26 @@ A private, local timetable planner for schools and colleges. It runs entirely in
 
 ## Run it on a laptop
 
-1. Install the current **Node.js LTS** release from [nodejs.org](https://nodejs.org/). Close and reopen PowerShell after installation.
-2. Open PowerShell in this `smart-timetable-saas` folder.
-3. Run `corepack enable` once, then run `pnpm install`.
-4. Start the app with `pnpm dev:web`.
-5. Open the local address printed in PowerShell (normally `http://localhost:5173`).
+You only need [Node.js LTS](https://nodejs.org/) and Git. After installing Node.js, close and reopen PowerShell.
+
+If you have not downloaded the project yet, run:
+
+```powershell
+git clone https://github.com/tanishka825157/Timetable-clasher.git
+cd Timetable-clasher\smart-timetable-saas
+```
+
+Then install the required packages and start the website:
+
+```powershell
+corepack enable
+pnpm install
+pnpm dev:web
+```
+
+Open the address shown in the terminal, usually `http://localhost:5173`.
+
+No database, API key, or `.env` file is needed to run the website. Press `Ctrl + C` in the terminal to stop it.
 
 For a production check, run `pnpm build:web`. The generated static site is placed in `apps/web/dist`.
 
