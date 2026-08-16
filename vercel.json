@@ -1,0 +1,12 @@
+{
+  "installCommand": "corepack enable && pnpm --dir smart-timetable-saas install",
+  "buildCommand": "pnpm --dir smart-timetable-saas build:web",
+  "outputDirectory": "smart-timetable-saas/apps/web/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
