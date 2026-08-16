@@ -1,7 +1,7 @@
+import os
+
 from pathlib import Path
-
-
-import os, dj_database_url
+import dj_database_url
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY",config("SECRET_KEY",default="developmen
 DEBUG = os.environ.get("DEBUG",config("DEBUG",default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
 
-INSTALLED_APPS = [s
+INSTALLED_APPS = [
     "django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes",
     "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
     "timetable",
