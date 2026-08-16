@@ -1,4 +1,5 @@
 from pathlib import Path
+from pickle import FALSE
 
 import dj_database_url
 from decouple import config
@@ -35,7 +36,7 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
+WHITENOISE_MANIFEST_STRICT = FALSE
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",

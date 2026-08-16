@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Clash Detection - Simple Interview Study Guide</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --brand: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --info: #06b6d4;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--brand);
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--brand);
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        ul, ol {
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            font-family: Consolas, Monaco, "Andale Mono", monospace;
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--brand);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box.danger {
+            background-color: #fef2f2;
+            border-left-color: var(--danger);
+        }
+
+        .highlight-box.success {
+            background-color: #f0fdf4;
+            border-left-color: var(--success);
+        }
+
+        .q-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fafbfd;
+        }
+
+        .q-text {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .a-text {
+            color: var(--text);
+            margin-left: 10px;
+            border-left: 3px solid #cbd5e1;
+            padding-left: 15px;
+        }
+
+        .diagram {
+            font-family: Consolas, monospace;
+            background-color: #1e293b;
+            color: #38bdf8;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre;
+            overflow-x: auto;
+            line-height: 1.3;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .q-card {
+                page-break-inside: avoid;
+            }
+            pre, .diagram {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timetable Clash Detection</h1>
+        <div class="subtitle">Simplified Interview Study Guide & Project Breakdown</div>
+
+        <h2>1. WHAT IS THIS PROJECT ABOUT? (The Whiteboard Analogy)</h2>
+        <p>Imagine you are in charge of planning the weekly timetable for a college. You have a giant whiteboard, a marker, and sticky notes.</p>
+        <p>If you do this manually, you are bound to make three common mistakes:</p>
+        <ul>
+            <li><strong>Teacher Double-Booking:</strong> You accidentally schedule Mr. Smith to teach Class A and Class B at the exact same time. (He cannot be in two places at once!)</li>
+            <li><strong>Room Double-Booking:</strong> You schedule Math and History in Room 101 at the same time. (They cannot share a single room!)</li>
+            <li><strong>Too Small Room:</strong> You schedule a Chemistry class of 80 students in a small lab that has only 30 chairs.</li>
+        </ul>
+        <div class="highlight-box success">
+            <strong>In simple words:</strong> This project is a website that solves these problems. As you create the timetable, the website automatically checks for these mistakes in the background and warns you <em>before</em> you save, so you never make scheduling errors.
+        </div>
+
+        <h2>2. THE TECH STACK (The Tools Used)</h2>
+        <p>There are <strong>two different versions</strong> of the timetable app built into this project:</p>
+
+        <h3>Version A: The Django Web App (Root Folder)</h3>
+        <p>This is the main, fully functional website.</p>
+        <ul>
+            <li><strong>Python & Django:</strong> Django is like the "brain" of the website. It handles saving data, checking for conflicts, and creating the web pages.</li>
+            <li><strong>SQLite Database (<code>db.sqlite3</code>):</strong> This is a simple database file that acts like a digital Excel sheet, storing all our teachers, rooms, and schedules.</li>
+            <li><strong>HTMX:</strong> A helper tool that makes the website feel fast. When you pick a teacher in the scheduling form, HTMX asks the brain in the background: <em>"Is this teacher free?"</em> and shows a warning on the page instantly, without needing a full page reload.</li>
+            <li><strong>Bootstrap:</strong> A library of pre-designed CSS styles that makes our website look neat with clean tables and grid layouts.</li>
+            <li><strong>OpenPyXL:</strong> A Python tool that lets the user download their finalized timetable as a real Excel file with one click.</li>
+        </ul>
+
+        <h3>Version B: The React App (<code>smart-timetable-saas/</code> folder)</h3>
+        <p>This is a modern prototype (draft version) built for the web.</p>
+        <ul>
+            <li><strong>React & TypeScript:</strong> A modern way to build highly interactive user interfaces. It runs a step-by-step wizard to set up subjects and teachers.</li>
+            <li><strong>Tailwind CSS:</strong> A modern CSS framework that makes the React app look very premium.</li>
+            <li><strong>Local Storage:</strong> The browser's built-in memory. The React app saves your timetable draft directly inside your Chrome or Edge browser, meaning it can work offline without any database.</li>
+        </ul>
+
+        <h2>3. HOW THE DATABASE IS STRUCTURED (The Tables)</h2>
+        <p>To build a timetable, we need to store different pieces of information. We do this using tables (called <strong>Models</strong> in Django):</p>
+        <ol>
+            <li><strong>Department:</strong> A branch of the college (e.g., <em>Computer Science</em>, <em>Mechanical Engineering</em>).</li>
+            <li><strong>Faculty (Teacher):</strong> The teachers (e.g., <em>Dr. John</em>, <em>Professor Sarah</em>), each belonging to a Department.</li>
+            <li><strong>Room:</strong> The classrooms, storing their name and how many chairs they have (<strong>capacity</strong>).</li>
+            <li><strong>Course (Subject):</strong> The subjects being taught (e.g., <em>Python 101</em>, <em>Calculus</em>), storing how many students are expected to attend.</li>
+            <li><strong>TimeSlot:</strong> The days (Monday to Saturday) and times (e.g., <em>9:00 AM to 10:30 AM</em>).</li>
+            <li><strong>Section (The Scheduled Class):</strong> This is the master sticker that ties everything together. A Section links:
+                <ul>
+                    <li>1 Course + 1 Teacher + 1 Room + 1 TimeSlot + a specific Semester.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="diagram">
++------------------+         +---------------+         +----------------------------+
+|    Department    |         |    Faculty    |         |    FacultyUnavailability   |
++------------------+         +---------------+         +----------------------------+
+| id [PK]          |&lt;--------| id [PK]       |&lt;--------| id [PK]                    |
+| name [Unique]    |         | name          |         | faculty_id [FK]            |
++------------------+         | email [Unique]|         | day_of_week, start_time    |
+         ^                   | dept_id [FK]  |         | end_time, reason           |
+         |                   +---------------+         +----------------------------+
+         |                           ^
+         |                           |
++------------------+                 |
+|      Course      |                 |                 +----------------------------+
+|------------------+                 |                 |          TimeSlot          |
+| id [PK]          |                 |                 +----------------------------+
+| code [Unique]    |                 |                 | id [PK]                    |
+| name             |                 |                 | day_of_week, start_time    |
+| expected_strength|                 |                 | end_time [Unique together] |
+| dept_id [FK]     |                 |                 +----------------------------+
++------------------+                 |                               ^
+         ^                           |                               |
+         |                           |                               |
+         +-----------------+         |         +---------------------+
+                           |         |         |
+                        +-------------------------+
+                        |         Section         |
+                        +-------------------------+
+                        | id [PK]                 |
+                        | course_id [FK]          |
+                        | faculty_id [FK] ------->| (Indexes on:
+                        | room_id [FK]  --------->|  - room + semester
+                        | timeslot_id [FK]        |  - faculty + semester)
+                        | semester                |
+                        +-------------------------+
+                                     |
+                                     v
+                             +---------------+
+                             |     Room      |
+                             +---------------+
+                             | id [PK]       |
+                             | name [Unique] |
+                             | capacity      |
+                             +---------------+</div>
+
+        <h2>4. HOW THE "DOUBLE-BOOKING" LOGIC WORKS (The Math)</h2>
+        <p>The core code that checks if two classes clash is in the file <code>timetable/clash_detector.py</code>.</p>
+
+        <h3>The Overlap Formula</h3>
+        <p>To see if two classes (Class A and Class B) happen at the same time on the same day, we check:</p>
+        <pre><code>day1 == day2 and start1 &lt; end2 and start2 &lt; end1</code></pre>
+
+        <h3>Let's understand this with an example:</h3>
+        <ul>
+            <li><strong>Class A:</strong> 9:00 AM to 10:30 AM (Start = 9:00, End = 10:30)</li>
+            <li><strong>Class B:</strong> 10:00 AM to 11:30 AM (Start = 10:00, End = 11:30)</li>
+        </ul>
+        <p>Do they clash? Let's check:</p>
+        <ol>
+            <li>Are they on the same day? <strong>Yes.</strong></li>
+            <li>Is Class A's start time (9:00) before Class B's end time (11:30)? <strong>Yes.</strong></li>
+            <li>Is Class B's start time (10:00) before Class A's end time (10:30)? <strong>Yes.</strong></li>
+        </ol>
+        <p>Since all conditions are <strong>Yes</strong>, they overlap! The code flags a clash.</p>
+
+        <h3>Why do we use strictly less-than (<code>&lt;</code>) and NOT less-than-or-equal (<code>&lt;=</code>)?</h3>
+        <p>Imagine <strong>Class A</strong> is 9:00 AM to 10:00 AM, and <strong>Class B</strong> is 10:00 AM to 11:00 AM. These are back-to-back classes. If we used <code>&lt;=</code>, the computer would think they clash because they both touch 10:00 AM. By using <code>&lt;</code>, the computer knows they are safe back-to-back classes and does not raise a false alarm!</p>
+
+        <h2>5. TOP 10 INTERVIEW QUESTIONS & EASY ANSWERS</h2>
+
+        <div class="q-card">
+            <div class="q-text">Q1: How does the clash detection work?</div>
+            <div class="a-text">"It checks if two classes are scheduled on the same day and their times overlap. It checks this for classrooms (to avoid room double-booking) and for teachers (to avoid teacher double-booking)."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q2: Why did you use strict &lt; instead of &lt;= in your overlap code?</div>
+            <div class="a-text">"To allow back-to-back classes. If Class A ends at 10:00 AM and Class B starts at 10:00 AM, they don't overlap. Using strict &lt; keeps them valid, whereas &lt;= would incorrectly flag a conflict."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q3: What is HTMX and why is it used?</div>
+            <div class="a-text">"HTMX is a tiny JavaScript library. It lets us check for conflicts in the background. When an admin selects a teacher or room on the form, HTMX sends the data to the backend and displays clash warnings instantly, without reloading the whole page."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q4: How did you optimize the database queries?</div>
+            <div class="a-text">"I used Django's <code>select_related()</code> function. Normally, Django makes separate database queries to fetch details like Teacher Name, Course Name, and Room Name for every single class cell. <code>select_related()</code> fetches all of them in a single query using SQL joins, making the page load much faster."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q5: What database indexes did you add?</div>
+            <div class="a-text">"I added indexes on the Section table for <code>('room', 'semester')</code> and <code>('faculty', 'semester')</code>. Since these are the columns we search most often to check for clashes, the indexes act like an index at the back of a textbook, letting the database find records instantly without scanning the whole table."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q6: What happens when a user edits a class? How do you prevent it clashing with itself?</div>
+            <div class="a-text">"When editing, we exclude the current class's ID from our database search. If we didn't do this, the system would compare the updated class with its own saved version in the database and say: <em>'Error! This class clashes with itself!'</em>"</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q7: What is the difference between the Django app and the React app?</div>
+            <div class="a-text">"The Django app is the complete, database-backed website. The React app is a modern, offline-first visual prototype that saves data in the browser's local storage and runs a setup wizard."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q8: What happens if a class has more students than the room capacity?</div>
+            <div class="a-text">"The code checks if the expected student strength of the Course is greater than the Room's capacity. If it is, the system shows a warning, but we allow admins to override it because sometimes they might add extra chairs."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q9: What is the benefit of using SQLite?</div>
+            <div class="a-text">"SQLite is a zero-configuration database that saves everything into a single local file (<code>db.sqlite3</code>). This makes it extremely easy to set up, run, and test the project locally without installing heavy database servers like MySQL or PostgreSQL."</div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-text">Q10: If you had more time, what would you improve in this project?</div>
+            <div class="a-text">"I would do two things: First, I would write the overlap check directly in database queries instead of loading records into Python memory. Second, I would activate the Unavailability checks so that teachers aren't scheduled when they're marked unavailable."</div>
+        </div>
+
+        <h2>6. WEAK POINTS & IMPROVEMENTS</h2>
+        <p>If the interviewer asks: <em>"What would you improve or refactor in this codebase?"</em>, you can confidently list these points:</p>
+        <ol>
+            <li><strong>In-Memory Filtering:</strong> Currently, the Django clash check pulls matching records from the database and loops through them in Python memory. This could be slow if there are thousands of records per room. I would rewrite the query to perform the overlap filter directly in the SQL query using database expressions.</li>
+            <li><strong>Unapplied Unavailability Rules:</strong> Although we have a <code>FacultyUnavailability</code> table defined in the database models, it is not actually queried in the clash detector functions. I would add a check to make sure teachers aren't scheduled during their marked unavailable hours.</li>
+            <li><strong>No Real Authentication on React:</strong> The React SaaS prototype uses mock credentials saved to local storage. I would connect it to the Express API backend to enforce secure JWT-based authentication.</li>
+        </ol>
+    </div>
+</body>
+</html>
