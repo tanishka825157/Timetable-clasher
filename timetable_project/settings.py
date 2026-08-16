@@ -1,15 +1,15 @@
 from pathlib import Path
-from pickle import FALSE
 
-import dj_database_url
+
+import os, dj_database_url
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = config("SECRET_KEY", default="development-only-change-me")
-DEBUG = config("DEBUG", default=True, cast=bool)
+SECRET_KEY = os.environ.get("SECRET_KEY",config("SECRET_KEY",default="development-only"))
+DEBUG = os.environ.get("DEBUG",config("DEBUG",default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [s
     "django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes",
     "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
     "timetable",
@@ -41,10 +41,15 @@ STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
+   
+
+        
+    "staticfiles":{
+     "BACKEND": "django.contrib.staticfiles.storage.StaticfilesStorage",
+    },       
 }
+    
+
 
 CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="http://127.0.0.1:8000,http://localhost:8000").split(",")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
