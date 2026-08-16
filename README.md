@@ -70,3 +70,18 @@ smart-timetable-saas/
   apps/web/       React website
   apps/api/       Optional API foundation (not required to run the website)
 ```
+
+## Deployment
+
+This repository is pre-configured for simple cloud deployment of both application versions:
+
+### 1. Deploying the React App (Vercel)
+The React frontend scheduler runs completely client-side.
+- Simply import this repository root into your [Vercel Dashboard](https://vercel.com).
+- The root-level `vercel.json` will automatically install the dependencies and build/deploy the application. No manual directory or command changes are required in the Vercel settings!
+
+### 2. Deploying the Django Web App (Render / Railway / Heroku)
+The Django app requires a backend server and a database to store timetables.
+- The project is configured with a `Procfile` (using Gunicorn) and a `build.sh` script (to run migrations and collect static files automatically).
+- You can deploy it to [Render](https://render.com) as a **Web Service** using the build command `./build.sh` and start command `gunicorn timetable_project.wsgi --log-file -`.
+
